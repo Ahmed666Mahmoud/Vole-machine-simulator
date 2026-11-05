@@ -8,6 +8,6 @@ outputbuffer +=(char) value;
 void Screen ::display(){
 
 cout<<outputbuffer;
-
+outputbuffer.clear();
 
 }
