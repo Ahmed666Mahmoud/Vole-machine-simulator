@@ -3,7 +3,7 @@
 using namespace std;
 
 
-    int cell[256] = {};
+
  
     int Memory::getCell(int CellNumber){
         return cell[CellNumber];
