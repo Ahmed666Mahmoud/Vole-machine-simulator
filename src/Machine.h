@@ -10,22 +10,23 @@
 #include<string>
 class Machine{
     private:
-  
+
     RegisterBank registers;
     Screen screen;
     Memory memory;
     ALU alu;
-      CPU cpu;
+    CPU cpu;
     public:
     Machine();
     void displayState();
     bool loadProgram(std::string filePath,int address);
-        
- 
-    void step();
-       
-  
-    void run();
-       
 
+
+    void step();
+
+    void run();
+
+    void setMemoryCell(int address, int value);
+
+    void setRegisterValue(int index, string value);
 };
