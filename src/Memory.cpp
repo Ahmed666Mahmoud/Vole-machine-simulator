@@ -9,12 +9,12 @@ using namespace std;
         return cells[CellNumber];
     }
     void Memory::setCell(int CellNumber,int Newvalue){
-        cell[CellNumber] = Newvalue;
+        cells[CellNumber] = Newvalue;
         
     }
 void Memory::display(){
     for(int i = 0; i < 256;i++){
-        cout << cell[i]<<endl;
+        cout << cells[i]<<endl;
     }
 }
 
