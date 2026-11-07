@@ -6,7 +6,7 @@ using namespace std;
 
  
     int Memory::getCell(int CellNumber){
-        return cell[CellNumber];
+        return cells[CellNumber];
     }
     void Memory::setCell(int CellNumber,int Newvalue){
         cell[CellNumber] = Newvalue;
