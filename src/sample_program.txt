@@ -1,0 +1,11 @@
+; Sample Vole Machine Program
+; Demonstrates loading, addition, memory storage, and screen output
+2105 ; Load R1 with immediate value 05
+2203 ; Load R2 with immediate value 03
+5312 ; Add R1 + R2 -> R3 = 08
+3320 ; Store R3 (08) in Memory Cell 0x20
+2448 ; Load R4 with ASCII 'H' (0x48)
+3400 ; Store R4 to Screen (Address 00 prints 'H')
+2549 ; Load R5 with ASCII 'I' (0x49)
+3500 ; Store R5 to Screen (Address 00 prints 'I' -> Screen now shows "HI")
+C000 ; Halt CPU

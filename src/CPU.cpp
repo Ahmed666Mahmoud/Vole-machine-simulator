@@ -13,6 +13,7 @@ CPU::CPU(RegisterBank& registers, Memory& memory, Screen& screen, ALU& alu)
 	screen(screen), alu(alu)
 {
 }
+
 void CPU::reset(int startAddress)
 {
 	PC = startAddress;
@@ -20,19 +21,32 @@ void CPU::reset(int startAddress)
 	Halted = false;
 }
 
-bool CPU::isHalted()
+bool CPU::isHalted() const
 {
-	return Halted ;
+	return Halted;
+}
+
+int CPU::getPC() const
+{
+	return PC;
+}
+
+string CPU::getIR() const
+{
+	return IR;
+}
+
+void CPU::setPC(int pc)
+{
+	PC = pc;
 }
 
 void CPU::step()
 {
-	
 	if (Halted) {
 		return;
 	}
 
-	
 	if (PC < 0 || PC > 254) {
 		Halted = true;
 		return;
@@ -74,12 +88,10 @@ void CPU::step()
 		string regValue = registers.getRegister(regNum);
 		int byteValue = stoi(regValue, nullptr, 16);
 
-		if (address == 255) {
+		if (address == 0 || address == 255) {
 			screen.write(static_cast<uint8_t>(byteValue));
 		}
-		else {
-			memory.setCell(address, byteValue);
-		}
+		memory.setCell(address, byteValue);
 	}
 	else if (opcode == '4') {
 		int sourceReg = stoi(string(1, IR[2]), nullptr, 16);
@@ -175,7 +187,7 @@ void CPU::step()
 			<< setw(2) << (int)result;
 
 		registers.setRegister(regNum, temp.str());
-		}
+	}
 	else if (opcode == 'B') {
 		string regValue = registers.getRegister(regNum);
 		string zeroValue = registers.getRegister(0);
@@ -183,8 +195,8 @@ void CPU::step()
 		if (regValue == zeroValue) {
 			PC = stoi(value, nullptr, 16);
 		}
-		}
+	}
 	else if (opcode == 'C') {
 		Halted = true;
-}
+	}
 }

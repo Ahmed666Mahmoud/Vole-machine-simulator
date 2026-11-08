@@ -1,15 +1,14 @@
-# pragma once
+#pragma once
 #include <string>
 #include <cstdint>
 using namespace std;
-  class Screen{
-    private:
+
+class Screen {
+private:
     string outputbuffer;
-    public:
+public:
     void write(uint8_t value);
     void display();
-
-
-
-
-  };
+    string getBuffer() const;
+    void clear();
+};

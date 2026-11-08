@@ -1,0 +1,56 @@
+@startuml Vole_Step_Sequence
+!theme plain
+autonumber
+skinparam roundcorner 8
+skinparam shadowing false
+
+actor User
+participant "MainWindow\n(GUI)" as GUI
+participant "Machine\n(Facade)" as Machine
+participant "CPU" as CPU
+participant "Memory" as RAM
+participant "ALU" as ALU
+participant "Screen" as Screen
+
+== Program Loading ==
+User -> GUI : Click "Load Program File..."
+GUI -> Machine : loadProgram(filePath, startAddress)
+Machine -> RAM : setCell(addr, byte) for each byte
+Machine -> CPU : reset(startAddress)
+GUI -> GUI : updateUI()
+
+== Instruction Step Execution ==
+User -> GUI : Click "Step" (or F10)
+GUI -> Machine : step()
+Machine -> CPU : step()
+
+activate CPU
+CPU -> RAM : getCell(PC) & getCell(PC + 1)
+note right of CPU : Fetch 2-byte Instruction\nDecode Opcode & Operands
+CPU -> CPU : PC += 2
+
+alt Opcode 5/6/7/8/9/A (ALU Operation)
+    CPU -> ALU : execute arithmetic/logic op
+    ALU --> CPU : result byte
+    CPU -> Machine : setRegister(R, result)
+else Opcode 3 (Store to Address 00 / FF)
+    CPU -> Screen : write(byteValue)
+    CPU -> RAM : setCell(address, byteValue)
+else Opcode B (Conditional Jump)
+    CPU -> CPU : update PC if Reg[R] == Reg[0]
+else Opcode C (Halt)
+    CPU -> CPU : Halted = true
+end
+deactivate CPU
+
+Machine -> GUI : returns
+GUI -> Machine : getPC(), getIR(), isHalted()
+GUI -> Machine : getMemoryCell(0..255)
+GUI -> Machine : getRegisterValue(0..15)
+GUI -> Machine : getScreenBuffer()
+
+GUI -> GUI : updateMemoryTable() (highlight PC)
+GUI -> GUI : updateRegisterTable()
+GUI -> GUI : updateScreenOutput()
+GUI -> GUI : logMessage("Step executed...")
+@enduml

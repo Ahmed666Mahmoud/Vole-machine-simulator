@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Vole Machine Simulator (Brookshear Architecture)</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="mainVerticalLayout">
+    <!-- Simulation Controls -->
+    <item>
+     <widget class="QGroupBox" name="groupControls">
+      <property name="title">
+       <string>Simulation Controls</string>
+      </property>
+      <layout class="QHBoxLayout" name="controlsLayout">
+       <item>
+        <widget class="QPushButton" name="btnLoad">
+         <property name="text">
+          <string>Load Program File...</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblStartAddr">
+         <property name="text">
+          <string>Start Address (Hex):</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="editStartAddress">
+         <property name="maximumSize">
+          <size>
+           <width>60</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>00</string>
+         </property>
+         <property name="maxLength">
+          <number>2</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="Line" name="lineSep1">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnStep">
+         <property name="text">
+          <string>Step</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnRun">
+         <property name="text">
+          <string>Run All</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnReset">
+         <property name="text">
+          <string>Reset CPU</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnClearAll">
+         <property name="text">
+          <string>Clear All (Full Reset)</string>
+         </property>
+         <property name="toolTip">
+          <string>Resets CPU and clears all memory cells, registers, and screen output</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacerControls">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+
+    <!-- CPU State Group -->
+    <item>
+     <widget class="QGroupBox" name="groupCPU">
+      <property name="title">
+       <string>CPU State</string>
+      </property>
+      <layout class="QHBoxLayout" name="cpuLayout">
+       <item>
+        <widget class="QLabel" name="lblPCLabel">
+         <property name="text">
+          <string>&lt;b&gt;Program Counter (PC):&lt;/b&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblPCValue">
+         <property name="styleSheet">
+          <string>font-size: 14px; font-weight: bold; color: #0055ff;</string>
+         </property>
+         <property name="text">
+          <string>0x00</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacerCPU1">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>30</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblIRLabel">
+         <property name="text">
+          <string>&lt;b&gt;Instruction Register (IR):&lt;/b&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblIRValue">
+         <property name="styleSheet">
+          <string>font-size: 14px; font-weight: bold; color: #aa00aa;</string>
+         </property>
+         <property name="text">
+          <string>----</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacerCPU2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>30</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblStatusLabel">
+         <property name="text">
+          <string>&lt;b&gt;Status:&lt;/b&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblStatusValue">
+         <property name="styleSheet">
+          <string>font-size: 14px; font-weight: bold; color: green;</string>
+         </property>
+         <property name="text">
+          <string>READY</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="spacerCPU3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </item>
+
+    <!-- Main Content Splitter -->
+    <item>
+     <widget class="QSplitter" name="splitterMain">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <!-- Memory Panel -->
+      <widget class="QGroupBox" name="groupMemory">
+       <property name="title">
+        <string>Memory (256 Bytes: 16x16 Hex Grid)</string>
+       </property>
+       <layout class="QVBoxLayout" name="memoryLayout">
+        <item>
+         <widget class="QTableWidget" name="tableMemory">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SingleSelection</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="memoryEditLayout">
+          <item>
+           <widget class="QLabel" name="lblMemAddr">
+            <property name="text">
+             <string>Address (Hex):</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="editMemAddr">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>00</string>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblMemVal">
+            <property name="text">
+             <string>New Value (Hex):</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="editMemVal">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>00</string>
+            </property>
+            <property name="maxLength">
+             <number>2</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnSetMemory">
+            <property name="text">
+             <string>Overwrite Cell</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="btnClearMemory">
+            <property name="text">
+             <string>Clear Memory</string>
+            </property>
+            <property name="toolTip">
+             <string>Resets all 256 memory cells to 00</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="spacerMemEdit">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+
+      <!-- Right Panel: Registers + Screen + Logs -->
+      <widget class="QWidget" name="rightPanelWidget">
+       <layout class="QVBoxLayout" name="rightPanelLayout">
+        <!-- Registers -->
+        <item>
+         <widget class="QGroupBox" name="groupRegisters">
+          <property name="title">
+           <string>Register Bank (R0 - RF)</string>
+          </property>
+          <layout class="QVBoxLayout" name="registersLayout">
+           <item>
+            <widget class="QTableWidget" name="tableRegisters">
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::SingleSelection</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="registerEditLayout">
+             <item>
+              <widget class="QLabel" name="lblRegIndex">
+               <property name="text">
+                <string>Register:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboRegister"/>
+             </item>
+             <item>
+              <widget class="QLabel" name="lblRegVal">
+               <property name="text">
+                <string>Value (Hex):</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="editRegVal">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>00</string>
+               </property>
+               <property name="maxLength">
+                <number>2</number>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnSetRegister">
+               <property name="text">
+                <string>Overwrite Reg</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnClearRegisters">
+               <property name="text">
+                <string>Clear Regs</string>
+               </property>
+               <property name="toolTip">
+                <string>Resets all registers (R0 to RF) to 00</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+
+        <!-- Screen Output -->
+        <item>
+         <widget class="QGroupBox" name="groupScreen">
+          <property name="title">
+           <string>Screen Output (Address 0x00 / 0xFF)</string>
+          </property>
+          <layout class="QVBoxLayout" name="screenLayout">
+           <item>
+            <widget class="QPlainTextEdit" name="textScreen">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="screenBtnLayout">
+             <item>
+              <spacer name="spacerScreen">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnClearScreen">
+               <property name="text">
+                <string>Clear Screen</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+
+        <!-- Activity / Execution Log -->
+        <item>
+         <widget class="QGroupBox" name="groupLog">
+          <property name="title">
+           <string>Execution Log</string>
+          </property>
+          <layout class="QVBoxLayout" name="logLayout">
+           <item>
+            <widget class="QPlainTextEdit" name="textLog">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="logBtnLayout">
+             <item>
+              <spacer name="spacerLog">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnClearLog">
+               <property name="text">
+                <string>Clear Log</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+
+  <!-- Menu Bar -->
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1100</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionLoadFile"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuSimulation">
+    <property name="title">
+     <string>&amp;Simulation</string>
+    </property>
+    <addaction name="actionStep"/>
+    <addaction name="actionRun"/>
+    <addaction name="actionReset"/>
+    <addaction name="separator"/>
+    <addaction name="actionClearMemory"/>
+    <addaction name="actionClearRegisters"/>
+    <addaction name="actionClearAll"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuSimulation"/>
+  </widget>
+
+  <!-- Status Bar -->
+  <widget class="QStatusBar" name="statusbar"/>
+
+  <!-- Actions -->
+  <action name="actionLoadFile">
+   <property name="text">
+    <string>&amp;Load Program File...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionStep">
+   <property name="text">
+    <string>&amp;Step</string>
+   </property>
+   <property name="shortcut">
+    <string>F10</string>
+   </property>
+  </action>
+  <action name="actionRun">
+   <property name="text">
+    <string>&amp;Run All</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="text">
+    <string>&amp;Reset CPU</string>
+   </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
+  </action>
+  <action name="actionClearMemory">
+   <property name="text">
+    <string>Clear &amp;Memory</string>
+   </property>
+  </action>
+  <action name="actionClearRegisters">
+   <property name="text">
+    <string>Clear &amp;Registers</string>
+   </property>
+  </action>
+  <action name="actionClearAll">
+   <property name="text">
+    <string>Clear &amp;All (Full Reset)</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F4</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

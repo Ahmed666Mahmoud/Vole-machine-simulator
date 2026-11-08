@@ -1,17 +1,16 @@
 #pragma once
 #include <iostream>
+#include <string>
 using namespace std;
-#include <string >
+
 class RegisterBank
 {
-private :
+private:
 	string registers[16];
 public:
 	RegisterBank();
-	string getRegister(int regNum);
+	string getRegister(int regNum) const;
 	void setRegister(int regNum, string value);
 	void display();
-	
-
+	void clear();
 };
-

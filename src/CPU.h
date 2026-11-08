@@ -1,12 +1,13 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include "Memory.h"
 #include "RegisterBank.h"
 #include "Screen.h"
 #include "ALU.h"
 
-
 using namespace std;
+
 class CPU
 {
 private:
@@ -18,10 +19,12 @@ private:
 	Screen& screen;
 	ALU& alu;
 	
-public :
-	CPU(RegisterBank& registers,Memory &memory,Screen &screen,ALU&alu);
+public:
+	CPU(RegisterBank& registers, Memory& memory, Screen& screen, ALU& alu);
 	void reset(int startAddress);
-	bool isHalted();
+	bool isHalted() const;
 	void step();
+	int getPC() const;
+	string getIR() const;
+	void setPC(int pc);
 };
-
