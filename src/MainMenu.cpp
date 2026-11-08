@@ -50,30 +50,28 @@ void MainMenu::handleChoice(int choice)
             cout << "Invalid input!\n";
             cin.clear();
             cin.ignore(10000,'\n');
-            if (scndChoice == 1)
-            {
-                int address, value;
-                cout << "Enter memory address in hexadecimal: ";
-                cin >> address;
-                cout << "Enter the new hexadecimal value for the cell: ";
-                cin >> hex >> value >> dec;
-
-                machine.setMemoryCell(address, value);
-            }
-            else if (scndChoice == 2)
-            {
-                int registerIndex;
-                string value;
-                cout << "Enter the register index: ";
-                cin >> registerIndex;
-                cout << "Enter the new hexadecimal value for the cell: ";
-                cin >> value;
-
-                machine.setRegisterValue(registerIndex, value);
-            }
-            else cout << "Invalid Option!";
+            return;
         }
-
+        if (scndChoice == 1)
+        {
+            int address, value;
+            cout << "Enter memory address in hexadecimal: ";
+            cin >> hex >> address >> dec;
+            cout << "Enter the new hexadecimal value for the cell: ";
+            cin >> hex >> value >> dec;
+            machine.setMemoryCell(address, value);
+        }
+        else if (scndChoice == 2)
+        {
+            int registerIndex;
+            string value;
+            cout << "Enter the register index: ";
+            cin >> registerIndex;
+            cout << "Enter the new hexadecimal value for the cell: ";
+            cin >> value;
+            machine.setRegisterValue(registerIndex, value);
+        }
+        else cout << "Invalid Option!";
     }
     else if (choice == 3)
     {
