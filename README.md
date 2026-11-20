@@ -156,7 +156,7 @@ https://youtu.be/I-tGk0gv1uA
 
 
 document Link:
-https://docs.google.com/document/d/1M5WozAdExF89liL5HkimA5tTftP0Q1MQAEBU8LLKcNc/edit?tab=t.0
+https://docs.google.com/document/d/1M5WozAdExF89liL5HkimA5tTftP0Q1MQAEBU8LLKcNc/edit?usp=sharing
 
 GitHub Link:
 https://github.com/Ahmed666Mahmoud/Vole-machine-simulator.git
